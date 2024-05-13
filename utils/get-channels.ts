@@ -50,6 +50,6 @@ do {
 console.log("Channels:");
 channels.forEach((channel) => console.log(channel));
 
-Bun.write("private-channels.json", JSON.stringify(channels, null, 2));
+Bun.write("output/private-channels.json", JSON.stringify(channels, null, 2));
 
 outro("Goodbye!");
