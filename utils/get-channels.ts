@@ -1,5 +1,12 @@
 import { intro, outro, text } from "@clack/prompts";
 
+type Channel = {
+    name: string;
+    description: string;
+    private: boolean;
+    id: string;
+};
+
 intro("Welcome to the channel finder!");
 const token = await text({
     message: "Enter your API token",
@@ -22,9 +29,15 @@ if (!data.ok) {
     process.exit(1);
 }
 
-const channels = data.channels as { name: string }[];
+const channels: Channel[] = data.channels.map((channel: any) => ({
+    name: channel.name,
+    description: channel.purpose.value,
+    private: channel.is_private,
+    id: channel.id
+}));
 
 console.log("Channels:");
-channels.forEach((channel) => console.log(channel.name));
+channels.forEach((channel) => console.log(channel));
+// console.log(data)
 
 outro("Goodbye!");
